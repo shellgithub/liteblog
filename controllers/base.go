@@ -12,13 +12,13 @@ const SESSION_USER_KEY = "SESSION_USER_KEY"
 
 type BaseController struct {
 	web.Controller
-	User models.User
+	User    models.User
 	IsLogin bool
 }
 
-func (this *BaseController) Prepare()  {
+func (this *BaseController) Prepare() {
 	this.Data["Path"] = this.Ctx.Request.RequestURI
-	u,ok := this.GetSession(SESSION_USER_KEY).(models.User)
+	u, ok := this.GetSession(SESSION_USER_KEY).(models.User)
 	this.IsLogin = false
 	if ok {
 		this.User = u
@@ -28,22 +28,22 @@ func (this *BaseController) Prepare()  {
 	this.Data["islogin"] = this.IsLogin
 }
 
-func (this *BaseController) Abort500(err error)  {
-	this.Data["error"]=err
+func (this *BaseController) Abort500(err error) {
+	this.Data["error"] = err
 	this.Abort("500")
 }
 
-func (this *BaseController) GetMustString(key ,msg string) string {
+func (this *BaseController) GetMustString(key, msg string) string {
 	newsKey := this.GetString(key)
 	newsKeyLen := len(newsKey)
-	fmt.Printf("\n--controllers/base.go newsKey: %v, newsKeyLen:%d -- \n", newsKey, newsKeyLen)
+	fmt.Printf("\n--controllers/base.go-GetMustString-- newsKey: %v, newsKeyLen:%d -- \n", newsKey, newsKeyLen)
 	if len(newsKey) == 0 {
 		this.Abort500(errors.New(msg))
 	}
 	return newsKey
 }
 
-func (this *BaseController) MustLogin(){
+func (this *BaseController) MustLogin() {
 	if !this.IsLogin {
 		this.Abort500(syserror.NoUserError{})
 	}
@@ -51,16 +51,16 @@ func (this *BaseController) MustLogin(){
 
 type H map[string]interface{}
 
-func (this *BaseController) JsonOk(msg, action string){
-	this.Data["json"] = H {
-		"code": 0,
-		"msg": msg,
+func (this *BaseController) JsonOk(msg, action string) {
+	this.Data["json"] = H{
+		"code":   0,
+		"msg":    msg,
 		"action": "/",
 	}
 	this.ServeJSON()
 }
 
-func (this *BaseController) JsonOkH(msg string, data H){
+func (this *BaseController) JsonOkH(msg string, data H) {
 	data["code"] = 0
 	data["msg"] = msg
 	this.Data["json"] = data

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/beego/beego/v2/client/orm"
 	_ "github.com/go-sql-driver/mysql"
-
 	//"gorm.io/gorm"
 )
 
@@ -20,15 +19,15 @@ import (
 //}
 
 type User struct {
-    Id int
-	Name string
-	Email string
-	Pwd string
+	Id     int
+	Name   string
+	Email  string
+	Pwd    string
 	Avatar string
-	Role int64 //0代表管理员，1代表正常用户
+	Role   int64 //0代表管理员，1代表正常用户
 }
 
-func QueryUserByEmailAndPwd(email string, pwd string) (user User,err error) {
+func QueryUserByEmailAndPwd(email string, pwd string) (user User, err error) {
 	//defer
 	fmt.Printf("\n--models/user.go email: %v, pwd: %v --\n\n", email, pwd)
 
@@ -41,4 +40,66 @@ func QueryUserByEmailAndPwd(email string, pwd string) (user User,err error) {
 
 	return user, err1
 
+}
+
+func QueryUserByName(name string) (user User, err error) {
+	fmt.Printf("\n--models/user.go  user: %v  --\n\n", user)
+
+	//var user1 User
+	db := orm.NewOrm()
+	qs := db.QueryTable("user")
+
+	err1 := qs.Filter("name", name).One(&user)
+	fmt.Printf("\n--models/user.go  user: %v  --\n\n, err1: %v", user, err1)
+
+	return user, err1
+}
+
+func QueryUserByEmail(email string) (user User, err error) {
+	var user1 User
+	db := orm.NewOrm()
+	qs := db.QueryTable("user")
+
+	err1 := qs.Filter("email", email).One(&user)
+	fmt.Printf("\n--models/user.go  user: %v  --\n\n, err1: %v", user1, err1)
+
+	return user, err1
+}
+
+func SaveUser(user *User) error {
+	fmt.Printf("\n--models/user.go 开始执行 SaveUser \n\n"+
+		"Email: %v  Name: %v , Pwd: %v --\n\n", user.Email, user.Name, user.Pwd)
+	db := orm.NewOrm()
+	//qs := db.QueryTable("user")
+
+	//var users *User
+	//users.Id = 0
+	//users.Name = user.Name
+	//users.Email = user.Email
+	//users.Pwd = user.Pwd
+	//users.Avatar = user.Avatar
+	//users.Role = user.Role
+
+	//fmt.Printf("\n--models/user.go-SaveUser-  user: %v  --\n\n", users)
+
+	fmt.Printf("\n\nusers----- %v \n\n", user)
+	//err1, _ := db.Insert(users.Id,users.Name,users.Email,users.Pwd,users.Avatar,users.Role)
+	id, err := db.Insert(user)
+	if err == nil {
+		fmt.Printf("\n\n数据写入成功, id: %d\n\n", id)
+	}
+	//err1 := db.QueryTable(users)
+	//i, _ := qs.PrepareInsert()
+	//
+	//for _, user1 := range users {
+	//	id, err := i.Insert(user1)
+	//	if err == nil {
+	//		fmt.Printf("保存成功 %v\n", err)
+	//		err1 := err
+	//	}
+	//	//db.Raw("insert into user (users.Id,users.Name,users.Email,users.Pwd,users.Avatar,users.Role)")
+	////fmt.Printf("\n--models/user.go Email: %v  Name: %v Pwd: %v  --\n\n, err1: %v",  user.Email, user.Name, user.Pwd, err1)
+	//}
+	//id, err1 := qs.Insert(users)
+	return err
 }

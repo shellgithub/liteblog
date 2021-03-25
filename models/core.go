@@ -7,10 +7,6 @@ import (
 	"time"
 )
 
-//var (
-//	db = orm.NewOrm()
-//)
-
 //type User struct {
 //    Id int
 //	Name string
@@ -20,7 +16,7 @@ import (
 //	Role int64 //0代表管理员，1代表正常用户
 //}
 
-func init(){
+func init() {
 	//var err error
 
 	orm.RegisterDriver("mysql", orm.DRMySQL)
@@ -49,15 +45,18 @@ func init(){
 
 	//如果数据库里没有用户数据，我们新增一条admin 记录
 	//var count int64
-	db := orm.NewOrm()
+	//var db = orm.NewOrm()
 	//user := new(User)
+	var (
+		db = orm.NewOrm()
+	)
 
 	user := User{
 		Name:   "admin",
 		Email:  "admin@qq.com",
 		Pwd:    "admin",
 		Avatar: "/static/images/info-img.png",
-		Role:   0,}
+		Role:   0}
 
 	//user.Name = "admin"
 	//user.Email = "admin@qq.com"
@@ -78,12 +77,12 @@ func init(){
 		}
 	}
 
-		//"{
-		//Name:   "admin",
-		//Email:  "admin@qq.com",
-		//Pwd:    "admin",
-		//Avatar: "/static/images/info-img.png",
-		//Role:   0,}"
+	//"{
+	//Name:   "admin",
+	//Email:  "admin@qq.com",
+	//Pwd:    "admin",
+	//Avatar: "/static/images/info-img.png",
+	//Role:   0,}"
 
 	//if created,id, err := o.ReadOrCreate(&user, "Name", "Email", "pwd", "Avatar", "Role") ; err == nil{
 	//	if created {
@@ -101,6 +100,5 @@ func init(){
 	//		Role:   0,
 	//	})
 	//}
-
 
 }
