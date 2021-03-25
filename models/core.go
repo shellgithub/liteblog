@@ -68,7 +68,7 @@ func init(){
 	fmt.Printf("\n---models/core.go--- %v ---\n\n", user)
 	//id, err := o.Insert(&user)
 
-
+	// 判断是否已创建用户，没有则添加
 	if created, id, err := db.ReadOrCreate(&user, "Name"); err == nil {
 		if created {
 			fmt.Println("New Insert an object. Id:", id)

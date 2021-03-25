@@ -43,6 +43,10 @@ go run main.go
 
 https://www.sucainiu.com/5921.html
 
+#### 表单生成工具地址
+
+https://www.layui.com/demo/form.html
+
 #### 使用代理下载依赖包
 
 ```

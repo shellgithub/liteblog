@@ -11,7 +11,15 @@
 <div class="container-wrap">
   <div class="container">
     <div class="contar-wrap">
-      <div class="item">
+      {{ if .islogin }}
+        <h4 class="item">
+          <p><i class="layui-icon layui-icon-speaker"></i>
+            <span>欢迎，{{ .User.Name}}</span>
+            ,您是否要&nbsp<a href="/logout">退出登录</a>
+          </p>
+        </h4>
+        {{else}}
+        <div class="item">
         <div class="item-box  layer-photos-demo2 layer-photos-demo">
           <form class="layui-form" action="">
             <div class="layui-form-item">
@@ -38,6 +46,8 @@
           </form>
         </div>
       </div>
+
+      {{end}}
     </div>
   </div>
 </div>

@@ -31,12 +31,15 @@ func (this *UserController) Login() {
 		this.Abort500(syserror.New("登录失败！", err))
 	}
 	this.SetSession(SESSION_USER_KEY, user)
-	this.Data["json"] = map[string]interface{}{
-		"code": 0,
-		"action": "/",
+	this.JsonOk("登录成功","/")
+}
+
+// @router /logout [get]
+func (this *UserController) Logout(){
+	this.MustLogin()
+	if !this.IsLogin {
+		this.Abort500(syserror.NoUserError{})
 	}
-	//fmt.Print(SESSION_USER_KEY, user)
-
-	this.ServeJSON()
-
+	this.DelSession(SESSION_USER_KEY)
+	this.Redirect("/",302)
 }
