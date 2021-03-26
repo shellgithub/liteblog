@@ -2,7 +2,6 @@ package controllers
 
 type IndexController struct {
 	BaseController
-	//web.Controller
 }
 
 //type UserController struct {
@@ -50,3 +49,4 @@ func (this *IndexController) GetAbout() {
 func (this *IndexController) GetDetails() {
 	this.TplName = "details.html"
 }
+

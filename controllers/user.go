@@ -80,7 +80,7 @@ func (this *UserController) Reg() {
 		Email:  email,
 		Pwd:    password,
 		Avatar: "/static/images/info-img.png",
-		Role:   0,
+		Role:   1,  //0代表管理员，1代表正常用户
 	}); err != nil {
 		this.Abort500(syserror.New("用户保存失败", err))
 	}

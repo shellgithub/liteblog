@@ -3,7 +3,10 @@ package controllers
 import (
 	"errors"
 	"fmt"
-	"github.com/beego/beego/v2/server/web"
+	beego "github.com/beego/beego/v2/server/web"
+	"github.com/satori/go.uuid"
+
+	//"go/build/constraint"
 	"liteblog/models"
 	"liteblog/syserror"
 )
@@ -11,9 +14,14 @@ import (
 const SESSION_USER_KEY = "SESSION_USER_KEY"
 
 type BaseController struct {
-	web.Controller
+	beego.Controller
 	User    models.User
 	IsLogin bool
+}
+
+
+type NestPreparer interface {
+	NextPrepare()
 }
 
 func (this *BaseController) Prepare() {
@@ -26,6 +34,9 @@ func (this *BaseController) Prepare() {
 		this.Data["User"] = this.User
 	}
 	this.Data["islogin"] = this.IsLogin
+	if a, ok := this.AppController.(NestPreparer);ok {
+		a.NextPrepare()
+	}
 }
 
 func (this *BaseController) Abort500(err error) {
@@ -66,4 +77,9 @@ func (this *BaseController) JsonOkH(msg string, data H) {
 	this.Data["json"] = data
 	this.ServeJSON()
 
+}
+
+func (this *BaseController)UUID() string{
+	u := uuid.NewV4()
+	return u.String()
 }

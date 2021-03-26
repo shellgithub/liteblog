@@ -63,14 +63,14 @@ go get -u gorm.io/gorm
 go get -u gorm.io/driver/sqlite
 ```
 
-下载 orm
+### 下载 orm
 
 ```
 go get github.com/beego/beego/v2/client/orm
 go get github.com/go-sql-driver/mysql@v1.5.0
 ```
 
-添加依赖模块
+### 添加依赖模块
 
 ```
 初始化依赖模块
@@ -79,5 +79,29 @@ go mod init
 添加依赖模块
 go mod tidy
 
+```
+
+### 下载wangEditor
+
+- 2021-03-26
+
+- 文件地址：https://www.kancloud.cn/wangfupeng/wangeditor/65722
+- Https://github.com/wangfupeng1988/wangEditor
+- https://github.com/wangeditor-team/wangEditor/tags?after=v0.0.7
+
+```
+# 视频中的版本
+https://github.com/wangeditor-team/wangEditor/archive/refs/tags/v3.1.1.tar.gz
+
+# 当前最新版本 2021-03-26
+https://github.com/wangeditor-team/wangEditor/archive/refs/tags/v4.6.12.tar.gz
+```
+
+### UUID
+
+- 2021-03-26
+
+```
+go get github.com/satori/go.uuid
 ```
 
