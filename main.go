@@ -1,13 +1,13 @@
 package main
 
 import (
-	"encoding/gob"
+	"github.com/astaxie/beego/orm"
+	"github.com/beego/beego/v2/server/web"
 	"liteblog/models"
 	_ "liteblog/routers"
-	"github.com/beego/beego/v2/server/web"
 	"strings"
 
-	_ "liteblog/models"  // 程序启动时会加载models 目录下的模块
+	_ "liteblog/models" // 程序启动时会加载models 目录下的模块
 )
 
 func main() {
@@ -17,7 +17,8 @@ func main() {
 }
 
 func initSession(){
-	gob.Register(models.User{})
+	//gob.Register(models.User{})
+	orm.RegisterModel(new(models.User),new(models.Note))
 	web.BConfig.WebConfig.Session.SessionOn=true
 	web.BConfig.WebConfig.Session.SessionName="liteblog"
 	web.BConfig.WebConfig.Session.SessionProvider="file"

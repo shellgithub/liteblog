@@ -31,6 +31,7 @@ func init() {
 
 	// 需要在init中注册定义的model
 	orm.RegisterModel(new(User))
+	orm.RegisterModel(new(Note))
 
 	orm.RunSyncdb("default", false, true)
 
@@ -58,12 +59,6 @@ func init() {
 		Avatar: "/static/images/info-img.png",
 		Role:   0}
 
-	//user.Name = "admin"
-	//user.Email = "admin@qq.com"
-	//user.Pwd = "admin"
-	//user.Avatar = "/static/images/info-img.png"
-	//user.Role = 1
-
 	fmt.Printf("\n---models/core.go--- %v ---\n\n", user)
 	//id, err := o.Insert(&user)
 
@@ -77,28 +72,25 @@ func init() {
 		}
 	}
 
-	//"{
-	//Name:   "admin",
-	//Email:  "admin@qq.com",
-	//Pwd:    "admin",
-	//Avatar: "/static/images/info-img.png",
-	//Role:   0,}"
+	//note := Note{
+	//	Id: int64(0),
+	//	User_i_d:  0,
+	//	Key:     "admin",
+	//	User:    "admin",
+	//	Title:   "admin",
+	//	Summary: "admin",
+	//	Content: "admin",
+	//	Visit:   0,
+	//	Praise:  0,
+	//}
 
-	//if created,id, err := o.ReadOrCreate(&user, "Name", "Email", "pwd", "Avatar", "Role") ; err == nil{
+	// 判断是否已创建 note，没有则添加
+	//if created, id ,err := db.ReadOrCreate(&note,"note"); err == nil {
 	//	if created {
 	//		fmt.Println("New Insert an object. Id:", id)
 	//	} else {
 	//		fmt.Println("Get an object. Id:", id)
+	//		fmt.Printf("--- After Insert--- \n---ID: %d, Err: %v ------------\n", id, err)
 	//	}
 	//}
-	//if err := db.Model(&User{}).Count(&count).Error; err == nil && count == 0 {
-	//	db.Create(&User{
-	//		Name:   "admin",
-	//		Email:  "admin@qq.com",
-	//		Pwd:    "admin",
-	//		Avatar: "/static/images/info-img.png",
-	//		Role:   0,
-	//	})
-	//}
-
 }
