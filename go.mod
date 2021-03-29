@@ -5,6 +5,7 @@ go 1.16
 require github.com/beego/beego/v2 v2.0.1
 
 require (
+	github.com/PuerkitoBio/goquery v1.6.1 // indirect
 	github.com/astaxie/beego v1.12.3 // indirect
 	github.com/beego/bee/v2 v2.0.2 // indirect
 	github.com/flosch/pongo2 v0.0.0-20200913210552-0d938eb266f3 // indirect

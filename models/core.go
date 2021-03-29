@@ -7,15 +7,6 @@ import (
 	"time"
 )
 
-//type User struct {
-//    Id int
-//	Name string
-//	Email string
-//	Pwd string
-//	Avatar string
-//	Role int64 //0代表管理员，1代表正常用户
-//}
-
 func init() {
 	//var err error
 
@@ -35,19 +26,6 @@ func init() {
 
 	orm.RunSyncdb("default", false, true)
 
-	// Create
-	//db.Create(&User{
-	//	Name:   "admin",
-	//	Email:  "admin@qq.com",
-	//	Pwd:    "admin",
-	//	Avatar: "/static/images/info-img.png",
-	//	Role:   0,
-	//})
-
-	//如果数据库里没有用户数据，我们新增一条admin 记录
-	//var count int64
-	//var db = orm.NewOrm()
-	//user := new(User)
 	var (
 		db = orm.NewOrm()
 	)
@@ -71,26 +49,5 @@ func init() {
 			fmt.Printf("--- After Insert--- \n---ID: %d, Err: %v ------------\n", id, err)
 		}
 	}
-
-	//note := Note{
-	//	Id: int64(0),
-	//	User_i_d:  0,
-	//	Key:     "admin",
-	//	User:    "admin",
-	//	Title:   "admin",
-	//	Summary: "admin",
-	//	Content: "admin",
-	//	Visit:   0,
-	//	Praise:  0,
-	//}
-
-	// 判断是否已创建 note，没有则添加
-	//if created, id ,err := db.ReadOrCreate(&note,"note"); err == nil {
-	//	if created {
-	//		fmt.Println("New Insert an object. Id:", id)
-	//	} else {
-	//		fmt.Println("Get an object. Id:", id)
-	//		fmt.Printf("--- After Insert--- \n---ID: %d, Err: %v ------------\n", id, err)
-	//	}
-	//}
 }
+
