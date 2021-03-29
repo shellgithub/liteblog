@@ -40,7 +40,7 @@ func QueryNoteByKey(key string) (note Note, err error){
 	return note1, err1
 }
 
-func QueryNotesByPage(page , limit int) (note []orm.Params,err error){
+func QueryNotesByPage(title string, page , limit int) (note []orm.Params,err error){
 	firstLimit := (page-1)*limit
 	//limit := page*limit
 	fmt.Printf("---models/note.go--- QueryNotesByPage  firstLimit:%v , limit: %v ",firstLimit, limit)
@@ -48,7 +48,7 @@ func QueryNotesByPage(page , limit int) (note []orm.Params,err error){
 	db := orm.NewOrm()
 	// 获取 QuerySeter 对象，user 为表名
 	var maps []orm.Params
-	_, err = db.QueryTable("note").OrderBy("-id").Limit(limit, firstLimit).Values(&maps)
+	_, err = db.QueryTable("note").Filter("title__icontains", title).OrderBy("-id").Limit(limit, firstLimit).Values(&maps)
 	//if err == nil {
 	//	fmt.Printf("Result Nums: %d\n", num)
 	//	for _, m := range maps{
@@ -65,10 +65,10 @@ func QueryNotesByPage(page , limit int) (note []orm.Params,err error){
 	return maps, err
 }
 
-func QueryNotesCount() (count int64, err error) {
+func QueryNotesCount(title string) (count int64, err error) {
 	db := orm.NewOrm()
 	var cnt int64
-	cnt, err = db.QueryTable("note").Count()
+	cnt, err = db.QueryTable("note").Filter("title__icontains", title).Count()
 	return cnt, err
 
 }

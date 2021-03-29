@@ -33,15 +33,16 @@ func (this *IndexController) Get() {
 	}
 	fmt.Printf("\n---index.go ---page: %v, limit: %v\n",page, limit)
 
+	title := this.GetString("title")
 	// 得到的页面的数据
-	notes, err := models.QueryNotesByPage(page, limit)
+	notes, err := models.QueryNotesByPage(title, page, limit)
 	if err!= nil{
 		this.Abort500(err)
 	}
 	this.Data["notes"] = notes
 
 	// 得到的页面数量
-	count, err = models.QueryNotesCount()
+	count, err = models.QueryNotesCount(title)
 	if err!= nil{
 		this.Abort500(err)
 	}
@@ -53,6 +54,7 @@ func (this *IndexController) Get() {
 	}
 	this.Data["totpage"] = totpage
 	this.Data["page"] = page
+	this.Data["title"] = title
 	this.TplName = "index.html"
 }
 

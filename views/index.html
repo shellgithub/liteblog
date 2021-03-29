@@ -32,11 +32,11 @@
 					<div class="item-btn">
 						{{if gt .page 1 }}
 						<button class="layui-btn layui-btn-normal"
-						onclick="window.location.href='/?page={{add .page -1 }}'">上一页</button>
+						onclick="window.location.href='/?page={{add .page -1 }}&title={{ .title }}'">上一页</button>
 						{{end}}
 						{{if lt .page .totpage }}
 						<button class="layui-btn layui-btn-normal"
-								onclick="window.location.href='/?page={{add .page 1 }}'">下一页</button>
+								onclick="window.location.href='/?page={{add .page 1 }}&title={{ .title }}'">下一页</button>
 						{{end}}
 					</div>
 			</div>
