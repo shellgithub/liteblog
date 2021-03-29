@@ -6,11 +6,15 @@ import (
 	orm "github.com/beego/beego/v2/client/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/goinggo/mapstructure"
+	"time"
 )
 type Note struct {
 	Id     int64 `orm:"index"`
 	UserID int64
 	Key string `orm:"size(36)"`
+	Created time.Time `orm:"auto_now_add;type(datetime)"`
+	Updated time.Time `orm:"auto_now;type(datetime)"`
 	User string `orm:"size(50)"`
 	Title string `orm:"size(500)"`
 	Summary string `orm:"size(600)"`
@@ -34,6 +38,39 @@ func QueryNoteByKey(key string) (note Note, err error){
 		fmt.Printf("\n--models/note.go 查到有 key: %v  --\n\n, err1: %v", key, err1)
 	}
 	return note1, err1
+}
+
+func QueryNotesByPage(page , limit int) (note []orm.Params,err error){
+	firstLimit := (page-1)*limit
+	//limit := page*limit
+	fmt.Printf("---models/note.go--- QueryNotesByPage  firstLimit:%v , limit: %v ",firstLimit, limit)
+
+	db := orm.NewOrm()
+	// 获取 QuerySeter 对象，user 为表名
+	var maps []orm.Params
+	_, err = db.QueryTable("note").OrderBy("-id").Limit(limit, firstLimit).Values(&maps)
+	//if err == nil {
+	//	fmt.Printf("Result Nums: %d\n", num)
+	//	for _, m := range maps{
+	//		//fmt.Printf("\n---models/note.go  notes的类型 %T %v ---\n", notes, notes)
+	//		fmt.Printf("---models/note.go  QueryNotesByPage id: %v Title: %v\n",m["Id"],m["Title"])
+	//	}
+	//}
+	if err := mapstructure.Decode(maps, &note); err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Printf("\n---maps ---%v\n",maps)
+	fmt.Printf("\n---note ---%v\n",note)
+	return maps, err
+}
+
+func QueryNotesCount() (count int64, err error) {
+	db := orm.NewOrm()
+	var cnt int64
+	cnt, err = db.QueryTable("note").Count()
+	return cnt, err
+
 }
 
 //SaveNote

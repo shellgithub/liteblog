@@ -113,8 +113,12 @@ go get github.com/satori/go.uuid
 go get -u -v golang.org/x/net
 go get github.com/PuerkitoBio/goquery
 ```
+### mapstructure
 
-
+- 2021-03-29
+```
+go get github.com/goinggo/mapstructure
+```
 
 
 

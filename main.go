@@ -36,4 +36,8 @@ func initTemplate() {
 		return strings.Compare(x1,y1) == 0
 	})
 
+	web.AddFuncMap("add", func(x,y int) int {
+		return x+y
+	})
+
 }

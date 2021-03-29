@@ -1,5 +1,10 @@
 package controllers
 
+import (
+	"fmt"
+	"liteblog/models"
+)
+
 type IndexController struct {
 	BaseController
 }
@@ -16,6 +21,38 @@ type IndexController struct {
 
 // @router / [get]
 func (this *IndexController) Get() {
+	var (
+		limit int
+		count int64
+	)
+	limit = 4
+	//page
+	page, err := this.GetInt("page",1)
+	if err != nil || page <=0 {
+		page=1
+	}
+	fmt.Printf("\n---index.go ---page: %v, limit: %v\n",page, limit)
+
+	// 得到的页面的数据
+	notes, err := models.QueryNotesByPage(page, limit)
+	if err!= nil{
+		this.Abort500(err)
+	}
+	this.Data["notes"] = notes
+
+	// 得到的页面数量
+	count, err = models.QueryNotesCount()
+	if err!= nil{
+		this.Abort500(err)
+	}
+	fmt.Printf("\n\n---controlleres/index.go 文章总数, %v---\n\n", count)
+
+	totpage := count/int64(limit)
+	if count % int64(limit) != 0 {
+		totpage = totpage + 1
+	}
+	this.Data["totpage"] = totpage
+	this.Data["page"] = page
 	this.TplName = "index.html"
 }
 
