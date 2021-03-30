@@ -18,6 +18,14 @@ func main() {
 }
 
 func initSession(){
+	// https://beego.me/docs/advantage/monitor.md
+	//EnableAdmin 是否开启进程内监控模块，默认 false 关闭。
+	web.BConfig.Listen.EnableAdmin = true
+	//AdminAddr 监控程序监听的地址，默认值是 localhost 。
+	web.BConfig.Listen.AdminAddr = "localhost"
+	//AdminPort 监控程序监听的地址，默认值是 8088 。
+	web.BConfig.Listen.AdminPort = 8088
+
 	gob.Register(models.User{})
 	gob.Register(models.Note{})
 	orm.RegisterModel(new(models.User))
@@ -27,6 +35,8 @@ func initSession(){
 	web.BConfig.WebConfig.Session.SessionName="liteblog"
 	web.BConfig.WebConfig.Session.SessionProvider="file"
 	web.BConfig.WebConfig.Session.SessionProviderConfig = "data/session"
+
+
 }
 
 func initTemplate() {
