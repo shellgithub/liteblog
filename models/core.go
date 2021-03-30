@@ -13,9 +13,9 @@ func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	// set default database
 	// 2. 注册数据库, ORM必须注册一个别名为 default 的数据库，作为默认使用
-	orm.RegisterDataBase("default", "mysql", "root:root@tcp(127.0.0.1:3306)/liteblog?charset=utf8mb4")
-	// 设置为 UTC 时间
-	orm.DefaultTimeLoc = time.UTC
+	orm.RegisterDataBase("default", "mysql", "root:root@tcp(127.0.0.1:3306)/liteblog?charset=utf8mb4&loc=Asia%2FShanghai")
+	// 设置为 Local 时间
+	orm.DefaultTimeLoc = time.Local
 	// 根据数据库的别名，设置数据库的最大数据库连接 (go >= 1.2)
 	orm.SetMaxOpenConns("default", 30)
 	// 根据数据库的别名，设置数据库的最大空闲连接

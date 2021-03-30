@@ -18,7 +18,7 @@
 						<div class="item">
 							<div class="item-box  layer-photos-demo1 layer-photos-demo">
 								<h3><a href="details?key={{.Key}}">{{ .Title}}</a></h3>
-								<h5>发布于：<span>刚刚</span></h5>
+								<h5>作者：{{ .User }}发布于：<span>{{date .Updated "Y-m-d H:i:s"}}</span></h5>
 								<p>{{.Summary}}</p>
 							</div>
 							<div class="comment count">
