@@ -10,7 +10,7 @@ import (
 	"time"
 )
 type Note struct {
-	Id     int64 `orm:"index;pk;CHARSET=utf8mb4"`
+	Id     int64 //`orm:"index;pk"`
 	UserID int64
 	Key string `orm:"size(36)"`
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
