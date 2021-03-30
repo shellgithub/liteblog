@@ -78,3 +78,18 @@ func (this *NoteController) NoteSave() {
 	this.TplName = "note_new.html"
 }
 
+// @router /note_edit [get]
+func (this *NoteController) NoteEdit() {
+	key := this.GetString("key")
+	userId := int(this.User.Id)
+
+	fmt.Printf("---controllers/note.go--- NoteEdit  key: %v, userID: %v", key, userId)
+	note, err := QueryNoteByKeyAndUserid(key, userId)
+	if err != nil {
+		fmt.Printf("---controllers/note.go--- NoteEdit  note: %v",note)
+		this.Abort500(syserror.New("文章不存在！",err))
+	}
+	this.Data["note"] = note
+	this.Data["key"] = key
+	this.TplName = "note_edit.html"
+}

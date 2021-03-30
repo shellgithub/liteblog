@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	"liteblog/models"
+	"liteblog/syserror"
 )
 
 type IndexController struct {
@@ -86,6 +87,14 @@ func (this *IndexController) GetAbout() {
 
 // @router /details [get]
 func (this *IndexController) GetDetails() {
+	key := this.GetString("key")
+	fmt.Printf("---controllers/index.go---GetDetails key: %v\n",key)
+
+	note,err := models.QueryNoteByKey(key)
+	if err != nil {
+		this.Abort500(syserror.New("文章不存在",err))
+	}
+	this.Data["note"] = note
 	this.TplName = "details.html"
 }
 

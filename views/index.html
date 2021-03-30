@@ -17,7 +17,7 @@
 						{{ range .notes }}
 						<div class="item">
 							<div class="item-box  layer-photos-demo1 layer-photos-demo">
-								<h3><a href="details.html">{{ .Title}}</a></h3>
+								<h3><a href="details?key={{.Key}}">{{ .Title}}</a></h3>
 								<h5>发布于：<span>刚刚</span></h5>
 								<p>{{.Summary}}</p>
 							</div>
