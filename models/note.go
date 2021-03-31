@@ -42,8 +42,22 @@ func QueryNoteByKey(key string) (note Note, err error){
 	return note, err1
 }
 
+//DeleteNoteByUserIdAndKey
+func DeleteNoteByUserIdAndKey(key string, userid int) error {
+
+	db := orm.NewOrm()
+	fmt.Printf("\n\n--- models/note.go--- note_del() 获取从页面传过来 key: %v UserUid: %v \n\n", key, userid )
+
+	_, err := db.QueryTable("note").Filter("Key", key).Filter("UserID",userid).Delete()
+	if err == nil{
+		fmt.Println("QueryTable_user_Delete  执行删除成功")
+	}
+	return err
+}
+
 // QueryNoteByKeyAndUserid
 func QueryNoteByKeyAndUserid(key string, userid int) (note Note, err error) {
+
 	fmt.Printf("\n--models/user.go  user: %v userid: %v --\n\n", key, userid)
 
 	//var note1 Note
@@ -70,7 +84,7 @@ func QueryNotesByPage(title string, page , limit int) (note []orm.Params,err err
 	db := orm.NewOrm()
 	// 获取 QuerySeter 对象，user 为表名
 	var maps []orm.Params
-	_, err = db.QueryTable("note").Filter("title__icontains", title).OrderBy("-id").Limit(limit, firstLimit).Values(&maps)
+	_, err = db.QueryTable("note").Filter("title__icontains", title).OrderBy("-updated").Limit(limit, firstLimit).Values(&maps)
 	//if err == nil {
 	//	fmt.Printf("Result Nums: %d\n", num)
 	//	for _, m := range maps{
@@ -130,6 +144,7 @@ func SaveNote(note *Note) error{
 				"Title": note.Title,
 				"Content": note.Content,
 				"Summary": note.Summary,
+				"Updated": time.Now(),
 			})
 			fmt.Printf("Affected Num: %v, %v", num, err)
 		}

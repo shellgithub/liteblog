@@ -28,6 +28,21 @@ func (this *NoteController) NoteNew() {
 	this.TplName = "note_new.html"
 }
 
+// @router /note_del [post]
+func (this *NoteController) NoteDel() {
+	key := this.GetString("key")
+	userId := int(this.User.Id)
+	fmt.Printf("\n\n--- controller/note.go note_del() 获取从页面传过来 key 的值---  %v UserUid: %v \n\n", key, userId )
+	fmt.Printf("\n\n--- controller/note.go 开始执行 note_del() \n")
+
+	err := DeleteNoteByUserIdAndKey(key, userId)
+	if err != nil {
+		this.Abort500(syserror.New("删除失败",err))
+	}
+	this.JsonOk("删除成功", "/")
+	this.TplName = "note_new.html"
+}
+
 // @router /note_save/:key [post]
 func (this *NoteController) NoteSave() {
 	fmt.Printf("\n\n--- controller/note.go NoteSave() ---  %v  \n\n", "this" )

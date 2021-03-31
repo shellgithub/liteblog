@@ -55,8 +55,9 @@
 	{{/*var userdid = {{ .User.ID }}*/}}
 	// document.write("user.id  ", userdid )
 			if (userUID >0 && userRole===0 && userUID===note.userid){
-			layui.use('util', function(){
-				var util = layui.util;
+			layui.use(['util','jquery'], function(){
+				var util = layui.util,
+					$ = layui.jquery;
 
 				//执行
 				util.fixbar({
@@ -70,7 +71,21 @@
 						}
 						if(type === 'bar2'){
 							// alert('点击了bar2')
-							window.location.href="/note_delete/"+note.key
+							$.post("/note_del?key="+note.key,function (data) {
+								layer.msg("删除失败field code：" + data.field + data.code)
+								if(data.code == 0){
+									layer.msg("删除成功");
+									if(data.action) {
+										setTimeout(function () {
+											window.location.href = data.action;
+										}, 300);
+									}
+								}else {
+									layer.msg("删除失败：" + data.msg);
+								}
+							}, "json").error(function () {
+										layer.msg("网络异常")
+									})
 						}
 					}
 				});
