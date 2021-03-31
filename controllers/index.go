@@ -85,6 +85,27 @@ func (this *IndexController) GetAbout() {
 	this.TplName = "about.html"
 }
 
+// @router /comment [get]
+func (this *IndexController) GetComment() {
+	key := this.GetString("key")
+	fmt.Printf("---controllers/index.go---GetDetails key: %v\n",key)
+
+	note,err := models.QueryNoteByKey(key)
+	if err != nil {
+		this.Abort500(syserror.New("文章不存在",err))
+	}
+	this.Data["note"] = note
+
+	// 评论的页面的数据
+	messages ,err := models.QueryMessageByNoteKey(key)
+	if err != nil {
+		this.Abort500(syserror.New("评论不存在",err))
+	}
+	this.Data["messages"] = messages
+
+	this.TplName = "comment.html"
+}
+
 // @router /details [get]
 func (this *IndexController) GetDetails() {
 	key := this.GetString("key")
@@ -95,6 +116,12 @@ func (this *IndexController) GetDetails() {
 		this.Abort500(syserror.New("文章不存在",err))
 	}
 	this.Data["note"] = note
+
+	ms, err := models.QueryMessageByNoteKey(key)
+	if err != nil {
+		this.Abort500(syserror.New("评论不存在",err))
+	}
+	this.Data["messages"] = ms
 	this.TplName = "details.html"
 }
 

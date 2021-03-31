@@ -1,0 +1,12 @@
+{{ range .messages }}
+    <div class="info-item">
+        <img class="info-img" src="static/images/info-img.png" alt="">
+        <div class="info-text">
+            <p class="title count">
+                <span class="name">{{ .User }}</span>
+                <span class="info-img like"><i class="layui-icon layui-icon-praise"></i>5.8万</span>
+            </p>
+            <p class="info-intr">{{ .Content }}</p>
+        </div>
+    </div>
+{{end}}
