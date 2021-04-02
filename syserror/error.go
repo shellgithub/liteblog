@@ -6,7 +6,6 @@ type Error interface {
 	ReasonError() error
 }
 
-
-func New(msg string,reason error) Error{
-	return UnKnowError{msg:msg, reason:reason}
+func New(msg string, reason error) Error {
+	return UnKnowError{msg: msg, reason: reason}
 }

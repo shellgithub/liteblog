@@ -56,7 +56,7 @@
 
 		//监听提交
 		form.on("submit(comment)",function (formData) {
-				$.post("/message_new/{{.note.Key }}",{content:formData.field.content},function (data) {
+				$.post("/message_new/{{ .note.Key }}",{content:formData.field.content},function (data) {
 				if( data.code == 0 ){
 					layer.msg("评论成功！");
 					setTimeout(function () {

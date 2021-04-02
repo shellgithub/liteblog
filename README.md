@@ -17,8 +17,9 @@ bee 工具是一个为了协助快速开发 beego 项目而创建的项目，通
 ```
 go get -u github.com/beego/bee/v2
 
-export GOPATH=~/go/
+export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+echo 'export GOPATH=/data/go/' >> ~/.zshrc
 echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.zshrc
 ```
 安装完之后，bee 可执行文件默认存放在 `$GOPATH/bin `里面，所以您需要把` $GOPATH/bin` 添加到您的环境变量中，才可以进行下一步。

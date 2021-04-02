@@ -15,13 +15,51 @@ layui.define(['element', 'form','laypage','jquery','laytpl'],function(exports){
   
 
   //statr 分页
-  
-  laypage.render({
-    elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
-    ,count: 50 //数据总数，从服务端得到
-    ,theme: '#1e9fff'
-  });
-  
+  //获取留言总数量的方法，
+    // message/count
+    if ($("#test1").size()>0){
+        var count = 0;
+        $.get({
+          url:"/message/count",
+          type:"GET",
+          async: false,
+          success: function(ret) {
+            count = ret.count;
+          },
+          error:function () {
+            layer.msg("网络异常")
+          }
+        });
+
+      laypage.render({
+        elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+        ,count: count //数据总数，从服务端得到
+        ,theme: '#1e9fff'
+        ,limit: 3
+        ,jump: function(obj, first){
+          //obj包含了当前分页的所有参数，比如：
+          console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+          console.log(obj.limit); //得到每页显示的条数
+
+          //查询留言的路径为： /message/query
+          $.get("/message/query",{pageno:obj.curr,pagesize:obj.limit},function(ret){
+            if (ret.code == 0) {
+              var datas = ret.data;
+              var html = "";
+              for(var i=0;i<datas.length;i++){
+                html += drawMessage(datas[i]);
+              }
+              var $html = $(html);
+              $("#LAY-msg-box").html($html);
+            }else {
+              layer.msg(ret.msg);
+            }
+          }).error(function () {
+            layer.msg("网络异常！");
+          })
+        }
+      });
+    }
   // end 分頁
  
 
@@ -126,26 +164,38 @@ layui.define(['element', 'form','laypage','jquery','laytpl'],function(exports){
       return elemCont.focus();
     }
 
+    $.post("/message_new",{content:content}, function (ret) {
+      if (ret.code == 0 ){
+        var html = drawMessage(ret.data);
+        $('#LAY-msg-box').prepend(html);
+        elemCont.val('');
+        layer.msg('留言成功', {
+          icon: 1
+        })
+      }else{
+        layer.msg(ret.msg)
+      }
+
+    }).error(function () {
+      layer.msg("网络异常");
+    })
+  });
+
+  function drawMessage(message) {
     var view = $('#LAY-msg-tpl').html()
-
-    //模拟数据
-    ,data = {
-      username: '闲心'
-      ,avatar: '../res/static/images/info-img.png'
-      ,praise: 0
-      ,content: content
-    };
-
+        //模拟数据
+        ,data = {
+          username: message.User
+          ,avatar: message.Avatar || '/static/images/info-img.png'
+          ,praise: message.Praise
+          ,content: message.Content
+          ,key: message.Key
+        };
     //模板渲染
-    laytpl(view).render(data, function(html){
-      $('#LAY-msg-box').prepend(html);
-      elemCont.val('');
-      layer.msg('留言成功', {
-        icon: 1
-      })
-    });
+    // document.write( data + "<br>");
+    return laytpl(view).render(data);
 
-  })
+  }
 
   // start  图片遮罩
   var layerphotos = document.getElementsByClassName('layer-photos-demo');

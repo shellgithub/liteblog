@@ -1,7 +1,7 @@
 package syserror
 
 type UnKnowError struct {
-	msg string
+	msg    string
 	reason error
 }
 

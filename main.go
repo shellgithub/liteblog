@@ -17,7 +17,7 @@ func main() {
 	web.Run()
 }
 
-func initSession(){
+func initSession() {
 	// https://beego.me/docs/advantage/monitor.md
 	//EnableAdmin 是否开启进程内监控模块，默认 false 关闭。
 	web.BConfig.Listen.EnableAdmin = true
@@ -31,23 +31,22 @@ func initSession(){
 	orm.RegisterModel(new(models.User))
 	orm.RegisterModel(new(models.Note))
 
-	web.BConfig.WebConfig.Session.SessionOn=true
-	web.BConfig.WebConfig.Session.SessionName="liteblog"
-	web.BConfig.WebConfig.Session.SessionProvider="file"
+	web.BConfig.WebConfig.Session.SessionOn = true
+	web.BConfig.WebConfig.Session.SessionName = "liteblog"
+	web.BConfig.WebConfig.Session.SessionProvider = "file"
 	web.BConfig.WebConfig.Session.SessionProviderConfig = "data/session"
-
 
 }
 
 func initTemplate() {
-	web.AddFuncMap("equrl", func(x,y string) bool {
+	web.AddFuncMap("equrl", func(x, y string) bool {
 		x1 := strings.Trim(x, "/")
 		y1 := strings.Trim(y, "/")
-		return strings.Compare(x1,y1) == 0
+		return strings.Compare(x1, y1) == 0
 	})
 
-	web.AddFuncMap("add", func(x,y int) int {
-		return x+y
+	web.AddFuncMap("add", func(x, y int) int {
+		return x + y
 	})
 
 }
