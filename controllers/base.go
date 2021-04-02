@@ -4,8 +4,6 @@ import (
 	"errors"
 	"fmt"
 	beego "github.com/beego/beego/v2/server/web"
-	"github.com/satori/go.uuid"
-
 	//"go/build/constraint"
 	"liteblog/models"
 	"liteblog/syserror"
@@ -18,7 +16,6 @@ type BaseController struct {
 	User    models.User
 	IsLogin bool
 }
-
 
 type NestPreparer interface {
 	NextPrepare()
@@ -34,7 +31,7 @@ func (this *BaseController) Prepare() {
 		this.Data["User"] = this.User
 	}
 	this.Data["islogin"] = this.IsLogin
-	if a, ok := this.AppController.(NestPreparer);ok {
+	if a, ok := this.AppController.(NestPreparer); ok {
 		a.NextPrepare()
 	}
 }
@@ -79,7 +76,7 @@ func (this *BaseController) JsonOkH(msg string, data H) {
 
 }
 
-func (this *BaseController)UUID() string{
+func (this *BaseController) UUID() string {
 	u := uuid.NewV4()
 	return u.String()
 }
