@@ -77,6 +77,7 @@ func QueryMessageByNoteKey(notekey string) (message []orm.Params, err error) {
 	return maps, err
 }
 
+<<<<<<< HEAD
 func QueryMessageCountByNoteKey(notekey string)(count int64, err error){
 	fmt.Printf("\n--models/message.go QueryMessageCountByNoteKey --\n\n")
 	db := orm.NewOrm()
@@ -105,3 +106,23 @@ func QueryPageMessageByNoteKey(notekey string, pageno int, pagesize int) (data [
 
 	return maps, err
 }
+=======
+//func QueryNotesByPage11(title string, page , limit int) (note []orm.Params,err error){
+//	firstLimit := (page-1)*limit
+//	//limit := page*limit
+//	fmt.Printf("---models/note.go--- QueryNotesByPage  firstLimit:%v , limit: %v ",firstLimit, limit)
+//
+//	db := orm.NewOrm()
+//	// 获取 QuerySeter 对象，user 为表名
+//	var maps []orm.Params
+//	_, err = db.QueryTable("note").Filter("title__icontains", title).OrderBy("-updated").Limit(limit, firstLimit).Values(&maps)
+//
+//	if err := mapstructure.Decode(maps, &note); err != nil {
+//		fmt.Println(err)
+//	}
+//
+//	fmt.Printf("\n---maps ---%v\n",maps)
+//	fmt.Printf("\n---note ---%v\n",note)
+//	return maps, err
+//}
+>>>>>>> 382c245e61573b6f74ef6f55c6906113c507d6da

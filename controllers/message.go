@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"fmt"
-	"liteblog/models"
+	mod "liteblog/models"
 	"liteblog/syserror"
 )
 
@@ -42,6 +42,10 @@ func (this *MessageController) MessageSave() {
 	fmt.Printf("controllers/message.go MessageSave %v", this.User.Role)
 
 	this.MustLogin()
+<<<<<<< HEAD
+=======
+	fmt.Printf("controllers/message.go NextPrepare %v", this.User.Role)
+>>>>>>> 382c245e61573b6f74ef6f55c6906113c507d6da
 
 	fmt.Printf("\n\n--- controller/message.go MessageSave() ---  %v  \n\n", this)
 
@@ -55,7 +59,11 @@ func (this *MessageController) MessageSave() {
 	fmt.Printf("---controllers/message.go--- NewMessage Notekey:%v, content: %v ", Notekey, content)
 	key := this.UUID()
 
+<<<<<<< HEAD
 	message1 := &models.Message{
+=======
+	message1 := &mod.Message{
+>>>>>>> 382c245e61573b6f74ef6f55c6906113c507d6da
 		Key:     key,
 		NoteKey: Notekey,
 		User:    this.User.Name,
@@ -63,6 +71,7 @@ func (this *MessageController) MessageSave() {
 		Content: content,
 	}
 
+<<<<<<< HEAD
 	if err := models.SaveMessage(message1); err != nil {
 		this.Abort500(syserror.New("保存失败", err))
 	}
@@ -70,3 +79,11 @@ func (this *MessageController) MessageSave() {
 	this.TplName = "comment.html"
 }
 
+=======
+	if err := mod.SaveMessage(message1); err != nil {
+		this.Abort500(syserror.New("保存失败", err))
+	}
+	this.JsonOkH("保存成功！", H{})
+	this.TplName = "comment.html"
+}
+>>>>>>> 382c245e61573b6f74ef6f55c6906113c507d6da
