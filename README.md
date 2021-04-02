@@ -15,9 +15,15 @@ bee 工具是一个为了协助快速开发 beego 项目而创建的项目，通
 您可以通过如下的方式安装 bee 工具：
 
 ```
+# 先配置 GOPATH
+mkdir -p $HOME/go
+export GOPATH=$HOME/go
+echo 'export GOPATH=/data/go/' >> ~/.zshrc
+
+# 下载 beego
 go get -u github.com/beego/bee/v2
 
-export GOPATH=$HOME/go
+# 配置 PATH
 export PATH=$PATH:$GOPATH/bin
 echo 'export GOPATH=/data/go/' >> ~/.zshrc
 echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.zshrc
