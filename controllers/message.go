@@ -37,7 +37,7 @@ func (this *MessageController) Query () {
 	this.JsonOkH("查询成功！", H{"data":ms})
 }
 
-// @router /message_new/ [post]
+// @router /message_new/?:key [post]
 func (this *MessageController) MessageSave() {
 	fmt.Printf("controllers/message.go MessageSave %v", this.User.Role)
 
