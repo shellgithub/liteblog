@@ -4,11 +4,8 @@ import (
 	"errors"
 	"fmt"
 	beego "github.com/beego/beego/v2/server/web"
-<<<<<<< HEAD
 	uuid "github.com/satori/go.uuid"
-=======
->>>>>>> 382c245e61573b6f74ef6f55c6906113c507d6da
-	//"go/build/constraint"
+ 	//"go/build/constraint"
 	"liteblog/models"
 	"liteblog/syserror"
 )
@@ -36,6 +33,7 @@ func (this *BaseController) Prepare() {
 		this.Data["User"] = this.User
 	}
 	this.Data["islogin"] = this.IsLogin
+	if a, ok := this.AppController.(NestPreparer); ok {
 		a.NextPrepare()
 	}
 }
@@ -62,7 +60,6 @@ func (this *BaseController) MustLogin() {
 }
 
 type H map[string]interface{}
-
 func (this *BaseController) JsonOk(msg, action string) {
 	this.Data["json"] = H{
 		"code":   0,

@@ -77,7 +77,6 @@ func QueryMessageByNoteKey(notekey string) (message []orm.Params, err error) {
 	return maps, err
 }
 
-<<<<<<< HEAD
 func QueryMessageCountByNoteKey(notekey string)(count int64, err error){
 	fmt.Printf("\n--models/message.go QueryMessageCountByNoteKey --\n\n")
 	db := orm.NewOrm()
@@ -106,7 +105,7 @@ func QueryPageMessageByNoteKey(notekey string, pageno int, pagesize int) (data [
 
 	return maps, err
 }
-=======
+
 //func QueryNotesByPage11(title string, page , limit int) (note []orm.Params,err error){
 //	firstLimit := (page-1)*limit
 //	//limit := page*limit
@@ -125,4 +124,3 @@ func QueryPageMessageByNoteKey(notekey string, pageno int, pagesize int) (data [
 //	fmt.Printf("\n---note ---%v\n",note)
 //	return maps, err
 //}
->>>>>>> 382c245e61573b6f74ef6f55c6906113c507d6da
