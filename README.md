@@ -3,8 +3,19 @@
 ## 相关文档地址
 
 - https://beego.me/docs
-
 - https://beego.me/docs/intro/
+
+
+
+- 参考视频地址： https://www.bilibili.com/video/av29253354/
+- 参考简书地址：https://www.jianshu.com/nb/27703855 
+- 参考 github 仓库：https://github.com/jicg/liteblog
+
+### 非常感谢
+
+- [jicg](https://github.com/jicg)
+- [beego](https://hub.fastgit.org/astaxie/beego)
+- [xianyan](https://hub.fastgit.org/layui/xianyan/)
 
 ### bee 工具简介
 
