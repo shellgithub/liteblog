@@ -50,6 +50,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl'],function(exports){
                 html += drawMessage(datas[i]);
               }
               var $html = $(html);
+              $html.find(".like").on("click",praise);
               $("#LAY-msg-box").html($html);
             }else {
               layer.msg(ret.msg);
@@ -124,25 +125,48 @@ layui.define(['element', 'form','laypage','jquery','laytpl'],function(exports){
   }
 
   $(function () {
-    $(".like").on('click',function () {
-     
-      if(!($(this).hasClass("layblog-this"))){
-        this.text = '已赞';
-        $(this).addClass('layblog-this');
-        $.tipsBox({
-          obj: $(this),
-          str: "+1",
-          callback: function () {
-          }
-        });
-        niceIn($(this));
-        layer.msg('点赞成功', {
-          icon: 6
-          ,time: 1000
-        })
-      } 
-    });
+    $(".like").on('click',praise);
   });
+
+  function praise(){
+      if(!($(this).hasClass("layblog-this"))){
+        var type = $(this).data("type");
+        var key = $(this).data("key");
+        var that = this;
+        $.post("/praise/" + type + "/" + key + "",function (data) {
+          if(data.code == 0){
+            that.text = '已赞';
+            $(that).addClass('layblog-this');
+            $.tipsBox({
+              obj: $(that),
+              str: "+1",
+              callback: function () {
+              }
+            });
+            niceIn($(that));
+            layer.msg('点赞成功', {
+              icon: 6
+              ,time: 1000
+            })
+            $(that).find(".value").text(data.praise)
+          }else {
+            if (data.code = 4444){
+              // 已经点过赞了调整样式
+              $(that).addClass('layblog-this');
+              layer.msg(data.msg);
+
+            }else{
+              layer.msg(data.msg);
+            }
+          }
+
+        }).error(function () {
+          layer.msg("网络异常");
+        });
+
+
+      }
+    }
 
   //end 评论的特效
 
@@ -167,7 +191,9 @@ layui.define(['element', 'form','laypage','jquery','laytpl'],function(exports){
     $.post("/message_new",{content:content}, function (ret) {
       if (ret.code == 0 ){
         var html = drawMessage(ret.data);
-        $('#LAY-msg-box').prepend(html);
+        var $html = $(html);
+        $html.find(".like").on("click",praise);
+        $('#LAY-msg-box').prepend($html);
         elemCont.val('');
         layer.msg('留言成功', {
           icon: 1

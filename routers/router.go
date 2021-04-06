@@ -17,6 +17,7 @@ func init() {
 	beego.Include(&controllers.UserController{})
 	beego.Include(&controllers.NoteController{})
 	beego.Include(&controllers.MessageController{})
+	beego.Include(&controllers.PraiseController{})
 
 	// 使用 note/new 地址 静态资源加载不了
 	//beego.AddNamespace(

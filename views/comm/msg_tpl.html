@@ -4,7 +4,10 @@
         <div class="info-text">
             <p class="title count">
                 <span class="name">{{ .User }}</span>
-                <span class="info-img like"><i class="layui-icon layui-icon-praise"></i>5.8万</span>
+                <span class="pull-right like">
+                    <a href="javascript:;" class="like" data-type="message" data-key="{{.note.Key}}">点赞</a>
+					<em class="value">99+</em>
+				</span>
             </p>
             <p class="info-intr">{{ .Content }}</p>
         </div>

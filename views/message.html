@@ -34,11 +34,11 @@
 			<div class="info-item">
 				<img class="info-img" src="{{ d.avatar }}" alt="">
 				<div class="info-text">
-					<p class="title">
+					<p class="title count">
 						<span class="name">{{ d.username }}</span>
-						<span class="info-img">
+						<span class="info-img like" data-type="message" data-key={{ d.key }}>
 							<i class="layui-icon layui-icon-praise"></i>
-							{{ d.praise }}
+							<span class="value like" >{{ d.praise }}</span>
 							</span>
 					</p>
 					<p class="info-intr">

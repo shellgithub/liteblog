@@ -17,14 +17,16 @@
 								<h5>作者：{{ .note.User }}发布于：<span>{{date .note.Updated "Y-m-d H:i:s"}}</span></h5>
 								<p>{{ str2html .note.Content}}</p>
 							</div>
-							<div class="comment count">
-								<a href="details.html#comment">评论</a> 评论数：{{.note.Praise}}<br>
-								<a href="javascript:;" class="like">点赞</a>	点赞数：{{ .note.Praise}}
+							<div class="count layui-clear">
+								<span class="pull-left" >阅读<em>1000+</em></span>
+								<span class="pull-right "><a href="javascript:;" class="like" data-type="note" data-key="{{.note.Key}}">点赞</a>
+									<em class="value">99+</em>
+								</span>
 							</div>
 						</div>
 						<a name="comment"> </a>
-						<div class="comt layui-clear">
-							<a href="javascript:;" class="pull-left">评论</a>
+						<div class="title layui-clear">
+							<a href="javascript:;" class="pull-left">评论 {{.note.Praise}}</a>
 							<a href="comment?key={{ .note.Key }}" class="pull-right">写评论</a>
 						</div>
 						<div id="LAY-msg-box">
