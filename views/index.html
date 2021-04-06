@@ -23,11 +23,9 @@
 							</div>
 							<div class="count layui-clear">
 								<span class="pull-left" >阅读<em>1000+</em></span>
-{{/*								<span class="pull-right like"><a href="javascript:;" class="like" data-type="note" data-key="{{.Key}}">点赞</a>*/}}
-{{/*									<em class="value">99+</em>*/}}
-{{/*								</span>*/}}
-								<span class="pull-right "><i class="like" data-type="note" data-key="{{.Key}}">点赞</i>
-									<em class="value">99+</em>
+								<span class="pull-right ">
+									<i class="layui-icon layui-icon-praise like" data-type="note" data-key="{{.Key}}"></i>
+									<em class="value"> {{ .Praise }} </em>
 								</span>
 							</div>
 						</div>
